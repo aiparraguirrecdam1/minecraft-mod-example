@@ -56,7 +56,7 @@ import java.util.function.Predicate;
 
 @Mod(DamMod.MOD_ID)
 public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStartEvent,
-        IItemPickupEvent, ILivingDamageEvent, IUseItemEvent, IFishedEvent,
+        IItemPickupEvent, ILivingDamageEvent, IUseItemEvent,
         IInteractEvent, IMovementEvent, LevelAccessor {
 
     public ExampleMod(){
@@ -76,6 +76,12 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockPos posX = BlockPos.of(event.getPos().getX());
         BlockState tipo = event.getState();
         Block block = event.getState().getBlock();
+
+        LevelAccessor levelAccessor = (LevelAccessor) getWorldBorder();
+        BlockState blockState = levelAccessor.getBlockState(pos);
+
+        block.destroy((LevelAccessor) blockState,pos,tipo);
+        block.destroy((LevelAccessor) blockState, BlockPos.of(pos.getX() + 1),tipo);
 
         if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
             System.out.println(tipo);
@@ -122,13 +128,6 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
     @SubscribeEvent
     public void onUseItem(LivingEntityUseItemEvent event) {
         LOGGER.info("evento LivingEntityUseItemEvent invocado "+event.getEntity().getClass());
-    }
-
-
-    @Override
-    @SubscribeEvent
-    public void onPlayerFish(ItemFishedEvent event) {
-        System.out.println("¡Has pescado un pez!");
     }
 
     @Override
