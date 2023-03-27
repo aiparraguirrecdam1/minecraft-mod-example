@@ -42,7 +42,6 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         System.out.println("Bloque destruido en la posicion "+ (pos.getX() - 1) + "X: " + pos);
         System.out.println("Bloque destruido en la posicion "+ (pos.getY() - 1) + "X: " + pos);
         System.out.println("Bloque destruido en la posicion "+ (pos.getZ() - 1) + "X: " + pos);
-        System.out.println("Bloque a la izquierda: ");
     }
 
     @Override
