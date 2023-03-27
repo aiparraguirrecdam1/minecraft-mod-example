@@ -35,7 +35,14 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
         BlockPos pos = event.getPos();
-        System.out.println("Bloque destruido en la posicion "+pos);
+        BlockPos posX = BlockPos.of(event.getPos().getX());
+        System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
+        System.out.println("Bloque destruido en la posicion "+ (pos.getY() + 1) + "X: " + pos);
+        System.out.println("Bloque destruido en la posicion "+ (pos.getZ() + 1) + "X: " + pos);
+        System.out.println("Bloque destruido en la posicion "+ (pos.getX() - 1) + "X: " + pos);
+        System.out.println("Bloque destruido en la posicion "+ (pos.getY() - 1) + "X: " + pos);
+        System.out.println("Bloque destruido en la posicion "+ (pos.getZ() - 1) + "X: " + pos);
+        System.out.println("Bloque a la izquierda: ");
     }
 
     @Override
