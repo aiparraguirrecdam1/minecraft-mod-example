@@ -35,6 +35,7 @@ import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.LevelData;
+import net.minecraft.world.level.storage.WorldData;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.LevelTickAccess;
@@ -73,18 +74,34 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
     public void onBlockBreak(BlockEvent.BreakEvent event) {
 
         BlockPos pos = event.getPos();
-        BlockPos posX = BlockPos.of(event.getPos().getX());
         BlockState tipo = event.getState();
         Block block = event.getState().getBlock();
 
-        LevelAccessor levelAccessor = (LevelAccessor) getWorldBorder();
-        BlockState blockState = levelAccessor.getBlockState(pos);
+        LevelAccessor p_49860 = event.getLevel();
+        block.destroy(p_49860, pos, block.defaultBlockState());
 
-        block.destroy((LevelAccessor) blockState,pos,tipo);
-        block.destroy((LevelAccessor) blockState, BlockPos.of(pos.getX() + 1),tipo);
+//        block.destroy(p_49860, BlockPos.of(pos.getX() + 1), block.defaultBlockState());
+
+
+
+
+//        LevelAccessor levelAccessor = (LevelAccessor) getWorldBorder();
+//        BlockState blockState = levelAccessor.getBlockState(pos);
+
+//        block.destroy((LevelAccessor) blockState,pos,tipo);
+//        block.destroy((LevelAccessor) blockState, BlockPos.of(pos.getX() + 1),tipo);
 
         if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
             System.out.println(tipo);
+            // Crea un objeto BlockPos para la posición deseada
+            destroyBlock(pos,false);
+            destroyBlock(BlockPos.of(pos.getX() + 1),true);
+            destroyBlock(BlockPos.of(pos.getY() + 1),true);
+            destroyBlock(BlockPos.of(pos.getZ() + 1),true);
+            destroyBlock(BlockPos.of(pos.getX() - 1),false);
+            destroyBlock(BlockPos.of(pos.getY() - 1),false);
+            destroyBlock(BlockPos.of(pos.getZ() - 1),false);
+
             System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
             System.out.println("Bloque destruido en la posicion "+ (pos.getY() + 1) + "Y: " + pos);
             System.out.println("Bloque destruido en la posicion "+ (pos.getZ() + 1) + "Z: " + pos);
@@ -94,9 +111,10 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
         }
         else {
-            System.out.println("El bloque destruido no es tierra");
+            System.out.println("El bloque destruido no es tierra ni arena ni grava");
         }
     }
+
 
     @Override
     @SubscribeEvent
