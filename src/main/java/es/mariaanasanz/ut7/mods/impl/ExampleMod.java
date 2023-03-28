@@ -15,6 +15,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -88,7 +90,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
         if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
             System.out.println(tipo);
-            // Crea un objeto BlockPos para la posición deseada
+            // Destruye un bloque en la posicion pos
             destroyBlock(pos,false);
 
             System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
@@ -101,6 +103,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         }
         else {
             System.out.println("El bloque destruido no es tierra ni arena ni grava");
+            System.out.println("El bloque no se puede destruir");
         }
     }
 
@@ -150,6 +153,31 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
             if (state.getBlock().getName().getString().trim().toLowerCase().endsWith("log")) {
                 System.out.println("¡Has hecho click sobre un tronco!");
             }
+        }
+
+        System.out.println("Datos del jugador: " + player.getMainHandItem());
+
+        if (heldItem.equals(Items.WOODEN_SHOVEL)){
+            System.out.println("El jugador tiene una pala en la mano");
+        }
+    }
+
+
+    @SubscribeEvent
+    public void onPlayerTouch(PlayerInteractEvent.LeftClickBlock event) {
+        System.out.println("¡Has hecho click izquierdo!");
+        BlockPos pos = event.getPos();
+        BlockState state = event.getLevel().getBlockState(pos);
+        Player player = event.getEntity();
+        ItemStack heldItem = player.getMainHandItem();
+        if (ItemStack.EMPTY.equals(heldItem)) {
+            System.out.println("La mano esta vacia");
+        }
+
+        System.out.println("Datos del jugador: " + player.getMainHandItem());
+
+        if (heldItem.equals(Items.WOODEN_SHOVEL)){
+            System.out.println("El jugador tiene una pala en la mano");
         }
     }
 
