@@ -77,12 +77,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockState tipo = event.getState();
         Block block = event.getState().getBlock();
 
-        LevelAccessor p_49860 = event.getLevel();
-        block.destroy(p_49860, pos, block.defaultBlockState());
-
 //        block.destroy(p_49860, BlockPos.of(pos.getX() + 1), block.defaultBlockState());
-
-
 
 
 //        LevelAccessor levelAccessor = (LevelAccessor) getWorldBorder();
@@ -95,12 +90,6 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
             System.out.println(tipo);
             // Crea un objeto BlockPos para la posición deseada
             destroyBlock(pos,false);
-            destroyBlock(BlockPos.of(pos.getX() + 1),true);
-            destroyBlock(BlockPos.of(pos.getY() + 1),true);
-            destroyBlock(BlockPos.of(pos.getZ() + 1),true);
-            destroyBlock(BlockPos.of(pos.getX() - 1),false);
-            destroyBlock(BlockPos.of(pos.getY() - 1),false);
-            destroyBlock(BlockPos.of(pos.getZ() - 1),false);
 
             System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
             System.out.println("Bloque destruido en la posicion "+ (pos.getY() + 1) + "Y: " + pos);
