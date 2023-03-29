@@ -126,12 +126,14 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 // Destruye un bloque en la posicion pos
                 destroyBlock(pos,false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + 2));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + 2));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + 2));
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - 2));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - 2));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - 2));
+                for (int i = 1; i <= 2; i++) {
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                }
 
             }
             else {
@@ -146,12 +148,14 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 // Destruye un bloque en la posicion pos
                 destroyBlock(pos,false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + 3));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + 3));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + 3));
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - 3));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - 3));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - 3));
+                for (int i = 1; i <= 3; i++) {
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                }
 
             }
             else {
@@ -166,12 +170,14 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 // Destruye un bloque en la posicion pos
                 destroyBlock(pos,false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + 4));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + 4));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + 4));
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - 4));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - 4));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - 4));
+                for (int i = 1; i <= 4; i++) {
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                }
 
             }
             else {
@@ -186,12 +192,14 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 // Destruye un bloque en la posicion pos
                 destroyBlock(pos,false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + 5));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + 5));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + 5));
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - 5));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - 5));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - 5));
+                for (int i = 1; i <= 5; i++) {
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                }
 
             }
             else {
