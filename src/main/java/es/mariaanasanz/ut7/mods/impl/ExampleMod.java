@@ -70,7 +70,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
     @Override
     public String autor() {
-        return "Javier Jorge Soteras";
+        return "Almudena Iparraguirre Castillo";
     }
 
     @Override
@@ -81,41 +81,42 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockState tipo = event.getState();
         Block block = event.getState().getBlock();
 
-//        block.destroy(p_49860, BlockPos.of(pos.getX() + 1), block.defaultBlockState());
+        LevelAccessor levelAccessor = event.getLevel();
+        System.out.println("Level Accessor : " + levelAccessor);
 
-
-//        LevelAccessor levelAccessor = (LevelAccessor) getWorldBorder();
-//        BlockState blockState = levelAccessor.getBlockState(pos);
-
-//        block.destroy((LevelAccessor) blockState,pos,tipo);
-//        block.destroy((LevelAccessor) blockState, BlockPos.of(pos.getX() + 1),tipo);
+        System.out.println("getWorldBorder: " + getWorldBorder());
 
         Player player = event.getPlayer();
+
 
         if (player.getMainHandItem().getItem().equals(Items.WOODEN_SHOVEL)){
             System.out.println("El jugador tiene una pala de madera en la mano");
 
-            System.out.println("Bloque destruido en la posicion "+ pos);
+            System.out.println("Bloque destruido en la posicion " + pos);
         }
 
         else if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
             System.out.println("El jugador tiene una pala de piedra en la mano");
+
             if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
                 System.out.println(tipo);
                 // Destruye un bloque en la posicion pos
                 destroyBlock(pos,false);
+                Level world = (Level) event.getLevel();
+                world.destroyBlock(BlockPos.of(pos.getX() + 1), false);
+                world.destroyBlock(BlockPos.of(pos.getY() + 1), false);
+                world.destroyBlock(BlockPos.of(pos.getZ() + 1), false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - 1));
+                System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - 1));
 
             }
             else {
                 System.out.println("El bloque destruido no es tierra ni arena ni grava");
-                System.out.println("El bloque no se puede destruir con una pala");
             }
         }
 
@@ -127,12 +128,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 destroyBlock(pos,false);
 
                 for (int i = 1; i <= 2; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println();
                 }
 
             }
@@ -149,12 +151,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 destroyBlock(pos,false);
 
                 for (int i = 1; i <= 3; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println();
                 }
 
             }
@@ -171,12 +174,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 destroyBlock(pos,false);
 
                 for (int i = 1; i <= 4; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println();
                 }
 
             }
@@ -193,12 +197,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 destroyBlock(pos,false);
 
                 for (int i = 1; i <= 5; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + "Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println();
                 }
 
             }
