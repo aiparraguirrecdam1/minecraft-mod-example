@@ -13,7 +13,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShovelItem;
@@ -88,22 +90,44 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 //        block.destroy((LevelAccessor) blockState,pos,tipo);
 //        block.destroy((LevelAccessor) blockState, BlockPos.of(pos.getX() + 1),tipo);
 
-        if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
-            System.out.println(tipo);
-            // Destruye un bloque en la posicion pos
-            destroyBlock(pos,false);
+        Player player = event.getPlayer();
 
-            System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
-            System.out.println("Bloque destruido en la posicion "+ (pos.getY() + 1) + "Y: " + pos);
-            System.out.println("Bloque destruido en la posicion "+ (pos.getZ() + 1) + "Z: " + pos);
-            System.out.println("Bloque destruido en la posicion "+ (pos.getX() - 1) + "X: " + pos);
-            System.out.println("Bloque destruido en la posicion "+ (pos.getY() - 1) + "Y: " + pos);
-            System.out.println("Bloque destruido en la posicion "+ (pos.getZ() - 1) + "Z: " + pos);
-
+        if (player.getMainHandItem().getItem().equals(Items.WOODEN_SHOVEL)){
+            System.out.println("El jugador tiene una pala de madera en la mano");
         }
-        else {
-            System.out.println("El bloque destruido no es tierra ni arena ni grava");
-            System.out.println("El bloque no se puede destruir");
+
+        else if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
+            System.out.println("El jugador tiene una pala de piedra en la mano");
+            if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
+                System.out.println(tipo);
+                // Destruye un bloque en la posicion pos
+                destroyBlock(pos,false);
+
+                System.out.println("Bloque destruido en la posicion "+ (pos.getX() + 1) + "X: " + pos);
+                System.out.println("Bloque destruido en la posicion "+ (pos.getY() + 1) + "Y: " + pos);
+                System.out.println("Bloque destruido en la posicion "+ (pos.getZ() + 1) + "Z: " + pos);
+                System.out.println("Bloque destruido en la posicion "+ (pos.getX() - 1) + "X: " + pos);
+                System.out.println("Bloque destruido en la posicion "+ (pos.getY() - 1) + "Y: " + pos);
+                System.out.println("Bloque destruido en la posicion "+ (pos.getZ() - 1) + "Z: " + pos);
+
+            }
+            else {
+                System.out.println("El bloque destruido no es tierra ni arena ni grava");
+                System.out.println("El bloque no se puede destruir con una pala");
+            }
+        }
+
+        else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
+            System.out.println("El jugador tiene una pala de hierro en la mano");
+        }
+        else if (player.getMainHandItem().getItem().equals(Items.GOLDEN_SHOVEL)) {
+            System.out.println("El jugador tiene una pala de oro en la mano");
+        }
+        else if (player.getMainHandItem().getItem().equals(Items.DIAMOND_SHOVEL)) {
+            System.out.println("El jugador tiene una pala de diamante en la mano");
+        }
+        else if (player.getMainHandItem().getItem().equals(Items.NETHERITE_SHOVEL)) {
+            System.out.println("El jugador tiene una pala de netherita en la mano");
         }
     }
 
@@ -175,10 +199,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         }
 
         System.out.println("Datos del jugador: " + player.getMainHandItem());
-
-        if (heldItem.equals(Items.WOODEN_SHOVEL)){
-            System.out.println("El jugador tiene una pala en la mano");
-        }
+        System.out.println(player.getEntityData());
     }
 
     @Override
