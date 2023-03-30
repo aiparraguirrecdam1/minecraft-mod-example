@@ -1,6 +1,7 @@
 package es.mariaanasanz.ut7.mods.impl;
 
 import es.mariaanasanz.ut7.mods.base.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -80,139 +82,134 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockPos pos = event.getPos();
         BlockState tipo = event.getState();
         Block block = event.getState().getBlock();
-
-        LevelAccessor levelAccessor = event.getLevel();
-        System.out.println("Level Accessor : " + levelAccessor);
-
-        System.out.println("getWorldBorder: " + getWorldBorder());
-
         Player player = event.getPlayer();
 
+        event.getLevel();
+        destroyBlock(BlockPos.of(pos.getX() + 1), false);
 
-        if (player.getMainHandItem().getItem().equals(Items.WOODEN_SHOVEL)){
-            System.out.println("El jugador tiene una pala de madera en la mano");
 
-            System.out.println("Bloque destruido en la posicion " + pos);
+
+
+        if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
+            System.out.println(tipo);
+
+            if (player.getMainHandItem().getItem().equals(Items.WOODEN_SHOVEL)) {
+                System.out.println("El jugador tiene una pala de madera en la mano");
+
+                System.out.println("Bloque destruido en la posicion " + pos);
+            } else if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
+                System.out.println("El jugador tiene una pala de piedra en la mano");
+
+
+                // Destruye un bloque en la posicion pos;
+
+
+                System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() + 1));
+                System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() + 1));
+                System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() + 1));
+                System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() - 1));
+                System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() - 1));
+                System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() - 1));
+
+
         }
 
-        else if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
-            System.out.println("El jugador tiene una pala de piedra en la mano");
 
-            if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
-                System.out.println(tipo);
-                // Destruye un bloque en la posicion pos
-                destroyBlock(pos,false);
-                Level world = (Level) event.getLevel();
-                world.destroyBlock(BlockPos.of(pos.getX() + 1), false);
-                world.destroyBlock(BlockPos.of(pos.getY() + 1), false);
-                world.destroyBlock(BlockPos.of(pos.getZ() + 1), false);
 
-                System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - 1));
-                System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - 1));
-
-            }
-            else {
-                System.out.println("El bloque destruido no es tierra ni arena ni grava");
-            }
-        }
-
-        else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
+            else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
             System.out.println("El jugador tiene una pala de hierro en la mano");
             if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
                 System.out.println(tipo);
                 // Destruye un bloque en la posicion pos
-                destroyBlock(pos,false);
+                destroyBlock(pos, false);
 
                 for (int i = 1; i <= 2; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() - i));
                     System.out.println();
-                }
 
-            }
-            else {
+                }
+                event.getLevel().destroyBlock(BlockPos.of(pos.getX() + 1), false);
+                event.getLevel().setBlock(BlockPos.of(pos.getX() + 1), Blocks.AIR.defaultBlockState(), 1);
+                event.getLevel().blockUpdated(BlockPos.of(pos.getX() + 1), Blocks.AIR.defaultBlockState().getBlock());
+
+                Minecraft.getInstance().level.destroyBlock(BlockPos.of(pos.getX() + 1), false);
+                Minecraft.getInstance().level.setBlock(BlockPos.of(pos.getX() + 1), Blocks.AIR.defaultBlockState(), 1);
+                Minecraft.getInstance().level.blockUpdated(BlockPos.of(pos.getX() + 1), Blocks.AIR.defaultBlockState().getBlock());
+
+            } else {
                 System.out.println("El bloque destruido no es tierra ni arena ni grava");
                 System.out.println("El bloque no se puede destruir con una pala");
             }
         }
-        else if (player.getMainHandItem().getItem().equals(Items.GOLDEN_SHOVEL)) {
+
+            else if (player.getMainHandItem().getItem().equals(Items.GOLDEN_SHOVEL)) {
             System.out.println("El jugador tiene una pala de oro en la mano");
-            if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
-                System.out.println(tipo);
+
                 // Destruye un bloque en la posicion pos
-                destroyBlock(pos,false);
+                destroyBlock(pos, false);
 
                 for (int i = 1; i <= 3; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() - i));
                     System.out.println();
                 }
 
-            }
-            else {
-                System.out.println("El bloque destruido no es tierra ni arena ni grava");
-                System.out.println("El bloque no se puede destruir con una pala");
-            }
+
         }
-        else if (player.getMainHandItem().getItem().equals(Items.DIAMOND_SHOVEL)) {
+
+
+
+            else if (player.getMainHandItem().getItem().equals(Items.DIAMOND_SHOVEL)) {
             System.out.println("El jugador tiene una pala de diamante en la mano");
-            if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
-                System.out.println(tipo);
+
                 // Destruye un bloque en la posicion pos
-                destroyBlock(pos,false);
+                destroyBlock(pos, false);
 
                 for (int i = 1; i <= 4; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() - i));
                     System.out.println();
                 }
 
             }
-            else {
-                System.out.println("El bloque destruido no es tierra ni arena ni grava");
-                System.out.println("El bloque no se puede destruir con una pala");
-            }
         }
+
+
+
         else if (player.getMainHandItem().getItem().equals(Items.NETHERITE_SHOVEL)) {
             System.out.println("El jugador tiene una pala de netherita en la mano");
-            if (block == Blocks.GRASS_BLOCK || block == Blocks.SAND || block == Blocks.GRAVEL) {
-                System.out.println(tipo);
                 // Destruye un bloque en la posicion pos
-                destroyBlock(pos,false);
+                destroyBlock(pos, false);
 
                 for (int i = 1; i <= 5; i++) {
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() + i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " X: " + (pos.getX() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Y: " + (pos.getY() - i));
-                    System.out.println("Bloque destruido en la posicion "+ pos + " Z: " + (pos.getZ() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() + i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " X: " + (pos.getX() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Y: " + (pos.getY() - i));
+                    System.out.println("Bloque destruido en la posicion " + pos + " Z: " + (pos.getZ() - i));
                     System.out.println();
                 }
 
-            }
+
+        }
             else {
                 System.out.println("El bloque destruido no es tierra ni arena ni grava");
-                System.out.println("El bloque no se puede destruir con una pala");
             }
         }
-    }
 
 
     @Override
