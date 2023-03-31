@@ -82,7 +82,6 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
         BlockPos pos = event.getPos();
         BlockState tipo = event.getState();
-        Block estado = event.getState().getBlock();
         Player player = event.getPlayer();
 
             if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
@@ -91,12 +90,18 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 1; x <= pos.getX() + 1; x++) {
                     for (int y = pos.getY() - 1; y <= pos.getY() + 1; y++) {
                         for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++) {
+                            Block estado = event.getState().getBlock();
+                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
                             BlockPos bloque = new BlockPos(x, y, z);
                             event.getLevel().destroyBlock(bloque, true);
+                            }
                         }
                     }
                 }
-            } else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
+
+            }
+
+            else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
                 System.out.println("El jugador tiene una pala de hierro en la mano");
 
                 for (int x = pos.getX() - 2; x <= pos.getX() + 2; x++) {
