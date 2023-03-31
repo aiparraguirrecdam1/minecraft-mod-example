@@ -82,6 +82,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
         BlockPos pos = event.getPos();
         BlockState tipo = event.getState();
+        Block estado = event.getState().getBlock();
         Player player = event.getPlayer();
 
             if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
@@ -90,13 +91,8 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 1; x <= pos.getX() + 1; x++) {
                     for (int y = pos.getY() - 1; y <= pos.getY() + 1; y++) {
                         for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++) {
-
-                            BlockState estado = getBlockState(pos);
-                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)) {
-                                BlockPos bloque = new BlockPos(x, y, z);
-                                event.getLevel().destroyBlock(bloque, true);
-                            }
-
+                            BlockPos bloque = new BlockPos(x, y, z);
+                            event.getLevel().destroyBlock(bloque, true);
                         }
                     }
                 }
@@ -106,13 +102,8 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 2; x <= pos.getX() + 2; x++) {
                     for (int y = pos.getY() - 2; y <= pos.getY() + 2; y++) {
                         for (int z = pos.getZ() - 2; z <= pos.getZ() + 2; z++) {
-
-                            BlockState estado = getBlockState(pos);
-                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)) {
-                                BlockPos bloque = new BlockPos(x, y, z);
-                                event.getLevel().destroyBlock(bloque, true);
-                            }
-
+                            BlockPos bloque = new BlockPos(x, y, z);
+                            event.getLevel().destroyBlock(bloque, true);
                         }
                     }
                 }
@@ -124,12 +115,8 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 3; x <= pos.getX() + 3; x++) {
                     for (int y = pos.getY() - 3; y <= pos.getY() + 3; y++) {
                         for (int z = pos.getZ() - 3; z <= pos.getZ() + 3; z++) {
-
-                            BlockState estado = getBlockState(pos);
-                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)) {
-                                BlockPos bloque = new BlockPos(x, y, z);
+                            BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
-                            }
                         }
                     }
                 }
@@ -141,12 +128,8 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 4; x <= pos.getX() + 4; x++) {
                     for (int y = pos.getY() - 4; y <= pos.getY() + 4; y++) {
                         for (int z = pos.getZ() - 4; z <= pos.getZ() + 4; z++) {
-
-                            BlockState estado = getBlockState(pos);
-                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)) {
-                                BlockPos bloque = new BlockPos(x, y, z);
+                            BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
-                            }
                         }
                     }
                 }
@@ -159,13 +142,8 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                 for (int x = pos.getX() - 5; x <= pos.getX() + 5; x++) {
                     for (int y = pos.getY() - 5; y <= pos.getY() + 5; y++) {
                         for (int z = pos.getZ() - 5; z <= pos.getZ() + 5; z++) {
-
-                            BlockState estado = getBlockState(pos);
-                            if (estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)) {
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
-                                }
-
                             }
                         }
                     }
