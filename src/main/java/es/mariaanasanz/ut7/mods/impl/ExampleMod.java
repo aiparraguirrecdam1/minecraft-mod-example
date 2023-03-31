@@ -85,7 +85,6 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockPos pos = event.getPos();
         BlockState tipo = event.getState();
         Player player = event.getPlayer();
-        RandomSource random = (RandomSource) new Random();
 
             if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
                 System.out.println("El jugador tiene una pala de piedra en la mano");
@@ -94,11 +93,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                     for (int y = pos.getY() - 1; y <= pos.getY() + 1; y++) {
                         for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT)||estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
-                                ItemStack pala = player.getMainHandItem();
+                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+//
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
-                                pala.hurt(1, random, null);
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                });
                             }
                             else {
                                 System.out.println("El bloque no se puede romper");
@@ -116,9 +117,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                     for (int y = pos.getY() - 2; y <= pos.getY() + 2; y++) {
                         for (int z = pos.getZ() - 2; z <= pos.getZ() + 2; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT)||estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+//
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                });
                             }
                             else {
                                 System.out.println("El bloque no se puede romper");
@@ -135,9 +140,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                     for (int y = pos.getY() - 3; y <= pos.getY() + 3; y++) {
                         for (int z = pos.getZ() - 3; z <= pos.getZ() + 3; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT)||estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+//
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                });
                             }
                             else {
                                 System.out.println("El bloque no se puede romper");
@@ -154,9 +163,13 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                     for (int y = pos.getY() - 4; y <= pos.getY() + 4; y++) {
                         for (int z = pos.getZ() - 4; z <= pos.getZ() + 4; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT)||estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+//
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                });
                             }
                             else {
                                 System.out.println("El bloque no se puede romper");
@@ -174,18 +187,22 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                     for (int y = pos.getY() - 5; y <= pos.getY() + 5; y++) {
                         for (int z = pos.getZ() - 5; z <= pos.getZ() + 5; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT)||estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)){
+//
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                });
                             }
                             else {
                                 System.out.println("El bloque no se puede romper");
-                            }
                             }
                         }
                     }
                 }
             }
+    }
 
 
     @Override
