@@ -86,7 +86,7 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockState tipo = event.getState();
         Player player = event.getPlayer();
 
-            if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {
+            if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {   //se evalua el tipo de pala
                 System.out.println("El jugador tiene una pala de piedra en la mano");
 
                 for (int x = pos.getX() - 1; x <= pos.getX() + 1; x++) {
