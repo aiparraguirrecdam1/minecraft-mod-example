@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -86,9 +87,10 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
         BlockState tipo = event.getState();
         Player player = event.getPlayer();
 
+
             if (player.getMainHandItem().getItem().equals(Items.STONE_SHOVEL)) {   //se evalua el tipo de pala
                 System.out.println("El jugador tiene una pala de piedra en la mano");
-
+                int bloquesRotos = 0;
                 for (int x = pos.getX() - 1; x <= pos.getX() + 1; x++) {
                     for (int y = pos.getY() - 1; y <= pos.getY() + 1; y++) {
                         for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++) {
@@ -96,11 +98,20 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
                             if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
                             || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
-//
+
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
-                                    player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
-                                        p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                                bloquesRotos++;
+                                int remainingDurability = player.getMainHandItem().getMaxDamage() - player.getMainHandItem().getDamageValue();
+
+                                    if (remainingDurability <= 0){
+                                        player.getMainHandItem().shrink(0);
+                                        player.getMainHandItem().setCount(0);
+                                        return;
+
+                                }
+                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
                                     });
                             }
 
@@ -113,95 +124,135 @@ public class ExampleMod extends DamMod implements IBlockBreakEvent, IServerStart
 
             }
 
-            else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {
-                System.out.println("El jugador tiene una pala de hierro en la mano");
+        else if (player.getMainHandItem().getItem().equals(Items.IRON_SHOVEL)) {   //se evalua el tipo de pala
+            System.out.println("El jugador tiene una pala de hierro en la mano");
+            int bloquesRotos = 0;
+            for (int x = pos.getX() - 2; x <= pos.getX() + 2; x++) {
+                for (int y = pos.getY() - 2; y <= pos.getY() + 2; y++) {
+                    for (int z = pos.getZ() - 2; z <= pos.getZ() + 2; z++) {
 
-                for (int x = pos.getX() - 2; x <= pos.getX() + 2; x++) {
-                    for (int y = pos.getY() - 2; y <= pos.getY() + 2; y++) {
-                        for (int z = pos.getZ() - 2; z <= pos.getZ() + 2; z++) {
+                        Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
+                        if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
+                                || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
 
-                            Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
-                                    || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
-//
-                                BlockPos bloque = new BlockPos(x, y, z);
-                                event.getLevel().destroyBlock(bloque, true);
-                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
-                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
-                                });
+                            BlockPos bloque = new BlockPos(x, y, z);
+                            event.getLevel().destroyBlock(bloque, true);
+                            bloquesRotos++;
+                            int remainingDurability = player.getMainHandItem().getMaxDamage() - player.getMainHandItem().getDamageValue();
+
+                            if (remainingDurability <= 0){
+                                player.getMainHandItem().shrink(0);
+                                player.getMainHandItem().setCount(0);
+                                return;
+
                             }
+                            player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                            });
+                        }
 
-                            else {
-                                System.out.println("El bloque no se puede romper");
-                            }
+                        else {
+                            System.out.println("El bloque no se puede romper");
                         }
                     }
                 }
             }
 
-            else if (player.getMainHandItem().getItem().equals(Items.GOLDEN_SHOVEL)) {
-                System.out.println("El jugador tiene una pala de oro en la mano");
+        }
 
-                for (int x = pos.getX() - 3; x <= pos.getX() + 3; x++) {
-                    for (int y = pos.getY() - 3; y <= pos.getY() + 3; y++) {
-                        for (int z = pos.getZ() - 3; z <= pos.getZ() + 3; z++) {
-                            Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
-                                    || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
-//
-                                BlockPos bloque = new BlockPos(x, y, z);
-                                event.getLevel().destroyBlock(bloque, true);
-                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
-                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
-                                });
-                            }
+        else if (player.getMainHandItem().getItem().equals(Items.GOLDEN_SHOVEL)) {   //se evalua el tipo de pala
+            System.out.println("El jugador tiene una pala de oro en la mano");
+            int bloquesRotos = 0;
+            for (int x = pos.getX() - 3; x <= pos.getX() + 3; x++) {
+                for (int y = pos.getY() - 3; y <= pos.getY() + 3; y++) {
+                    for (int z = pos.getZ() - 3; z <= pos.getZ() + 3; z++) {
 
-                            else {
-                                System.out.println("El bloque no se puede romper");
+                        Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
+                        if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
+                                || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
+
+                            BlockPos bloque = new BlockPos(x, y, z);
+                            event.getLevel().destroyBlock(bloque, true);
+                            bloquesRotos++;
+                            int remainingDurability = player.getMainHandItem().getMaxDamage() - player.getMainHandItem().getDamageValue();
+
+                            if (remainingDurability <= 0){
+                                player.getMainHandItem().shrink(0);
+                                player.getMainHandItem().setCount(0);
+                                return;
+
                             }
+                            player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                            });
+                        }
+
+                        else {
+                            System.out.println("El bloque no se puede romper");
                         }
                     }
                 }
             }
 
-            else if (player.getMainHandItem().getItem().equals(Items.DIAMOND_SHOVEL)) {
-                System.out.println("El jugador tiene una pala de diamante en la mano");
+        }
 
-                for (int x = pos.getX() - 4; x <= pos.getX() + 4; x++) {
-                    for (int y = pos.getY() - 4; y <= pos.getY() + 4; y++) {
-                        for (int z = pos.getZ() - 4; z <= pos.getZ() + 4; z++) {
-                            Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
-                            if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
-                                    || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
-//
-                                BlockPos bloque = new BlockPos(x, y, z);
-                                event.getLevel().destroyBlock(bloque, true);
-                                player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
-                                    p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
-                                });
-                            }
+        else if (player.getMainHandItem().getItem().equals(Items.DIAMOND_SHOVEL)) {   //se evalua el tipo de pala
+            System.out.println("El jugador tiene una pala de diamante en la mano");
+            int bloquesRotos = 0;
+            for (int x = pos.getX() - 4; x <= pos.getX() + 4; x++) {
+                for (int y = pos.getY() - 4; y <= pos.getY() + 4; y++) {
+                    for (int z = pos.getZ() - 4; z <= pos.getZ() + 4; z++) {
 
-                            else {
-                                System.out.println("El bloque no se puede romper");
+                        Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
+                        if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
+                                || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
+
+                            BlockPos bloque = new BlockPos(x, y, z);
+                            event.getLevel().destroyBlock(bloque, true);
+                            bloquesRotos++;
+                            int remainingDurability = player.getMainHandItem().getMaxDamage() - player.getMainHandItem().getDamageValue();
+
+                            if (remainingDurability <= 0){
+                                player.getMainHandItem().shrink(0);
+                                player.getMainHandItem().setCount(0);
+                                return;
+
                             }
+                            player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
+                                p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
+                            });
+                        }
+
+                        else {
+                            System.out.println("El bloque no se puede romper");
                         }
                     }
                 }
-
             }
+
+        }
 
             else if (player.getMainHandItem().getItem().equals(Items.NETHERITE_SHOVEL)) {
                 System.out.println("El jugador tiene una pala de netherita en la mano");
-
+                int bloquesRotos = 0;
                 for (int x = pos.getX() - 5; x <= pos.getX() + 5; x++) {
                     for (int y = pos.getY() - 5; y <= pos.getY() + 5; y++) {
                         for (int z = pos.getZ() - 5; z <= pos.getZ() + 5; z++) {
                             Block estado = event.getLevel().getBlockState(new BlockPos(x,y,z)).getBlock();
                             if ( estado.equals(Blocks.DIRT) || estado.equals(Blocks.GRASS_BLOCK) || estado.equals(Blocks.SAND) || estado.equals(Blocks.GRAVEL)
                                     || estado.equals(Blocks.SNOW) || estado.equals(Blocks.SNOW_BLOCK) || estado.equals(Blocks.CLAY)){
-//
+
                                 BlockPos bloque = new BlockPos(x, y, z);
                                 event.getLevel().destroyBlock(bloque, true);
+                                bloquesRotos++;
+                                int remainingDurability = player.getMainHandItem().getMaxDamage() - player.getMainHandItem().getDamageValue();
+
+                                if (remainingDurability <= 0){
+                                    player.getMainHandItem().shrink(0);
+                                    player.getMainHandItem().setCount(0);
+                                    return;
+
+                                }
                                 player.getMainHandItem().hurtAndBreak(1, player, (p) -> {
                                     p.broadcastBreakEvent(player.getMainHandItem().getEquipmentSlot());
                                 });
